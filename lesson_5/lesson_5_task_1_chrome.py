@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from webdriver_manager.chrome import ChromeDriverManager
 
-# Запуск Chrome
-driver = webdriver.Chrome()
+# Запуск Chrome с использованием webdriver-manager
+driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("http://the-internet.herokuapp.com/add_remove_elements/")
 
 # Клик по кнопке Add Element 5 раз
