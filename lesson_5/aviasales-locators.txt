@@ -1,0 +1,7 @@
+Локатор логотипа (html-елемент, содержащий в себе значок и слово "авиасейлс") - .header-logo
+Локатор поля Откуда - input[name="origin"]
+Локатор поля Куда - input[name="destination"]
+Локатор поля Когда - .trip-duration__input--departure
+Локатор поля Обратно - .trip-duration__input--return
+Локатор чек-бокса "Открыть Ostrovok.ru в новой вкладке" - input[name="is_checkbox_open_new_window"]
+Локатор кнопки Найти билеты - .form-submit__label
