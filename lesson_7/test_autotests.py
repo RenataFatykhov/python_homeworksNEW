@@ -1,5 +1,7 @@
-chrome import ChromeDriverManager
-
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from data_types_page import DataTypesPage
 from slow_calculator_page import SlowCalculatorPage
 from sauce_demo_page import SauceDemoPage
@@ -66,3 +68,4 @@ def test_purchase(driver):
     page.continue_checkout()
 
     assert page.get_total() == "Total: $58.29", "Expected total to be $58.29"
+    

@@ -34,3 +34,4 @@ class SauceDemoPage:
 
     def get_total(self) -> str:
         return self.driver.find_element(By.CSS_SELECTOR, ".summary_total_label").text
+    
