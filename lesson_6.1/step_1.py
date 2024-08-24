@@ -9,35 +9,41 @@ def test_form_submission():
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
 
-    # Заполнение формы
-    driver.find_element(By.ID, "first-name").send_keys("Иван")
-    driver.find_element(By.ID, "last-name").send_keys("Петров")
-    driver.find_element(By.ID, "address").send_keys("Ленина, 55-3")
-    driver.find_element(By.ID, "email").send_keys("test@skypro.com")
-    driver.find_element(By.ID, "phone").send_keys("+7985899998787")
-    driver.find_element(By.ID, "city").send_keys("Москва")
-    driver.find_element(By.ID, "country").send_keys("Россия")
-    driver.find_element(By.ID, "job-position").send_keys("QA")
-    driver.find_element(By.ID, "company").send_keys("SkyPro")
+    # Заполнение формы, используя поиск по атрибуту name
+    driver.find_element(By.NAME, "firstName").send_keys("Иван")
+    driver.find_element(By.NAME, "lastName").send_keys("Петров")
+    driver.find_element(By.NAME, "address").send_keys("Ленина, 55-3")
+    driver.find_element(By.NAME, "email").send_keys("test@skypro.com")
+    driver.find_element(By.NAME, "phone").send_keys("+7985899998787")
+    driver.find_element(By.NAME, "city").send_keys("Москва")
+    driver.find_element(By.NAME, "country").send_keys("Россия")
+    driver.find_element(By.NAME, "jobPosition").send_keys("QA")
+    driver.find_element(By.NAME, "company").send_keys("SkyPro")
 
     # Нажать кнопку Submit
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
-    # Проверка подсветки полей
-    zip_code_field = driver.find_element(By.ID, "zip")
-    assert "invalid" in zip_code_field.get_attribute("class"), "Zip code field is not highlighted red"
+    # Проверка подсветки поля "Zip Code" на наличие ошибки
+    zip_code_field = driver.find_element(By.NAME, "zip")
+    assert "invalid" in zip_code_field.get_attribute("class"), (
+        "Zip code field is not highlighted red"
+    )
 
+    # Поля для проверки на "valid"
     fields = [
-        "first-name", "last-name", "address", "email",
-        "phone", "city", "country", "job-position", "company"
+        "firstName", "lastName", "address", "email",
+        "phone", "city", "country", "jobPosition", "company"
     ]
 
     for field in fields:
-        element = driver.find_element(By.ID, field)
-        assert "valid" in element.getAttribute("class"), f"Field {field} is not highlighted green"
+        element = driver.find_element(By.NAME, field)
+        assert "valid" in element.get_attribute("class"), (
+            f"Field {field} is not highlighted green"
+        )
 
     driver.quit()
 
 
-if __name__ == "__main__":
+if name == "__main__":
     pytest.main()
+    
