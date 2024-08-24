@@ -31,7 +31,3 @@ def test_calculator():
     assert result == "15", f"Expected result to be 15, but got {result}"
 
     driver.quit()
-
-
-if name == "__main__":
-    pytest.main()
