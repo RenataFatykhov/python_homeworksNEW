@@ -31,10 +31,9 @@ def test_form_submission(driver):
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
     # Проверка подсветки поля "Zip Code" на наличие ошибки
-    zip_code_field = driver.find_element(By.ID, "zip")
-    assert "invalid" in zip_code_field.get_attribute("class"), (
-        "Zip code field is not highlighted red"
-    )
+    zip_code_field = driver.find_element(By.NAME, "zip-code")
+    error_message = driver.find_element(By.XPATH, "//div[@class='invalid-feedback' and @style='display: block;']")
+    assert error_message.is_displayed(), "Error message for Zip Code is not displayed"
 
     # Поля для проверки на "valid"
     fields = [
@@ -43,7 +42,5 @@ def test_form_submission(driver):
     ]
 
     for field in fields:
-        element = driver.find_element(By.ID, field)
-        assert "valid" in element.get_attribute("class"), (
-            f"Field {field} is not highlighted green"
-        )
+        success_message = driver.find_element(By.XPATH, f"//input[@name='{field}']/following-sibling::div[@class='valid-feedback' and @style='display: block;']")
+        assert success_message.is_displayed(), f"Field {field} is not highlighted green"
