@@ -1,8 +1,9 @@
-import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 
@@ -21,14 +22,12 @@ def test_calculator():
         driver.find_element(By.XPATH, f"//span[text()='{button}']").click()
 
     # Ожидание результата
-    time.sleep(45)  # ожидание 45 секунд
+    WebDriverWait(driver, 50).until(
+        EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".screen"), "15")
+    )
 
     # Проверка результата
     result = driver.find_element(By.CSS_SELECTOR, ".screen").text
     assert result == "15", f"Expected result to be 15, but got {result}"
 
     driver.quit()
-
-
-if __name__ == "__main__":
-    pytest.main()
